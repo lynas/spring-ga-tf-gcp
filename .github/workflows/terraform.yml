@@ -1,13 +1,13 @@
 name: Terraform Deploy
 
-on:
-  push:
-    branches: [ "master" ]
 #on:
-#  workflow_run:
-#    workflows: [ "Build and Push to GCP" ] # Must match the 'name' in upload_docker_image.yml
-#    types:
-#      - completed
+#  push:
+#    branches: [ "master" ]
+on:
+  workflow_run:
+    workflows: [ "Build and Push to GCP" ] # Must match the 'name' in upload_docker_image.yml
+    types:
+      - completed
 env:
   PROJECT_ID: "spring-boot-ci-cd-deployment"
   REGION: "europe-west3"
@@ -47,5 +47,5 @@ jobs:
 
       - name: 'Terraform Apply'
         run: terraform apply --auto-approve
-      #   env:
-      #     TF_VAR_app_image_tag: "${{ github.sha }}"
+        env:
+          TF_VAR_app_image_tag: "${{ github.sha }}"
