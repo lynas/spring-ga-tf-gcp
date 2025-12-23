@@ -42,10 +42,10 @@ jobs:
       - name: 'Terraform Init'
         run: terraform init
 
-#      - name: 'Terraform Plan'
-#        run: terraform plan
-#
-#      - name: 'Terraform Apply'
-#        run: terraform destroy --auto-approve
+      - name: 'Terraform Plan'
+        run: terraform plan
+
+      - name: 'Terraform Apply'
+        run: terraform apply --auto-approve
       #   env:
       #     TF_VAR_app_image_tag: "${{ github.sha }}"
