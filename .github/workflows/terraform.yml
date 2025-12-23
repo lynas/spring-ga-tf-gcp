@@ -1,13 +1,13 @@
 name: Terraform Deploy
 
-#on:
-#  push:
-#    branches: [ "master" ]
 on:
-  workflow_run:
-    workflows: [ "Build and Push to GCP" ] # Must match the 'name' in upload_docker_image.yml
-    types:
-      - completed
+  push:
+    branches: [ "master" ]
+#on:
+#  workflow_run:
+#    workflows: [ "Build and Push to GCP" ] # Must match the 'name' in upload_docker_image.yml
+#    types:
+#      - completed
 env:
   PROJECT_ID: "spring-boot-ci-cd-deployment"
   REGION: "europe-west3"
