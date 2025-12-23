@@ -16,6 +16,6 @@ fun main(args: Array<String>) {
 class SampleController {
     @GetMapping("/")
     fun hello(): String {
-        return "Hello World!"
+        return "Hello World! 2"
     }
 }
