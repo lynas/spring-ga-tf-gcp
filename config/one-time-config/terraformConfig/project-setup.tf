@@ -30,7 +30,7 @@ locals {
     "cloudresourcemanager.googleapis.com"
   ]
   # TODO Change as running locally multiple time
-  workload_identity_pool_id = "github-pool-v3"
+  workload_identity_pool_id = "github-pool-v4"
 }
 
 resource "google_project_service" "enabled_services" {

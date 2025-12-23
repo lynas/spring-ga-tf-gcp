@@ -24,9 +24,9 @@ resource "google_artifact_registry_repository" "docker_repo" {
   depends_on = [google_project_service.artifact_registry_api]
 }
 
-locals {
-  image_uri = "${var.region}-docker.pkg.dev/${var.project_id}/${var.repository_name}/${var.service_name}:${var.app_image_tag}"
-}
+# locals {
+#   image_uri = "${var.region}-docker.pkg.dev/${var.project_id}/${var.repository_name}/${var.service_name}:${var.app_image_tag}"
+# }
 # # Cloud_Run resource that deploy the application
 # resource "google_cloud_run_v2_service" "spring_boot_app" {
 #   name                = "spring-boot-service"

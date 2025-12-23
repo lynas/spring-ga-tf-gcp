@@ -17,7 +17,7 @@ env:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    if: ${{ github.env == 'success' }}
+    # if: ${{ github.env == 'success' }}
     # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     defaults:
       run:
@@ -33,7 +33,7 @@ jobs:
         name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v2'
         with:
-          workload_identity_provider: 'projects/587038327360/locations/global/workloadIdentityPools/github-pool-v3/providers/github-provider'
+          workload_identity_provider: 'projects/587038327360/locations/global/workloadIdentityPools/github-pool-v4/providers/github-provider'
           service_account: 'terraform-sa@spring-boot-ci-cd-deployment.iam.gserviceaccount.com'
 
       - name: 'Set up Terraform'
@@ -42,10 +42,10 @@ jobs:
       - name: 'Terraform Init'
         run: terraform init
 
-      - name: 'Terraform Plan'
-        run: terraform plan
-
-      - name: 'Terraform Apply'
-        run: terraform destroy --auto-approve
+#      - name: 'Terraform Plan'
+#        run: terraform plan
+#
+#      - name: 'Terraform Apply'
+#        run: terraform destroy --auto-approve
       #   env:
       #     TF_VAR_app_image_tag: "${{ github.sha }}"
