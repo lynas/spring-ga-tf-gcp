@@ -10,10 +10,10 @@ terraform {
       version = "~> 3.0"
     }
   }
-  # backend "gcs" {
-  #   bucket = "terraform-state-bucket-spring-boot-ci-cd-deployment"
-  #   prefix = "terraform/state"
-  # }
+  backend "gcs" {
+    bucket = "terraform-state-bucket-spring-boot-ci-cd-deployment"
+    prefix = "terraform/state"
+  }
 }
 
 # Configure the Google Cloud Provider
