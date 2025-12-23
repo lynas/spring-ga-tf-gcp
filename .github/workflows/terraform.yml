@@ -17,7 +17,7 @@ env:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    if: ${{ github.env == 'success' }}
+    # if: ${{ github.env == 'success' }}
     # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     defaults:
       run:
