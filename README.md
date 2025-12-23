@@ -1,10 +1,10 @@
-# Getting Started
+# Spring boot application GCP via terraform
 
-Create image
+## Create image
 ```shell
 ./gradlew bootBuildImage
 ```
-Docker commands
+## Docker commands
 
 ```shell
 # europe-west3-docker.pkg.dev/spring-boot-ci-cd-deployment/my-docker-repo
@@ -16,6 +16,8 @@ docker push europe-west3-docker.pkg.dev/spring-boot-ci-cd-deployment/my-docker-r
 docker run -d -p 8080:8080 docker.io/library/spring-boot-tf-gcp-sample:1.0.0
 
 ```
+
+## Terraform commands
 
 # Automating via github action
 
