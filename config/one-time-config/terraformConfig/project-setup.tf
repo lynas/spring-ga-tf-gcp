@@ -108,6 +108,7 @@ resource "google_service_account_iam_member" "workload_identity_user" {
   depends_on = [google_project_iam_member.sa_roles]
 }
 
+# 7. GCP bucket to store terraform state file
 resource "google_storage_bucket" "terraform_state_bucket" {
   project       = var.project_id
   name          = "terraform-state-bucket-${var.project_id}"
@@ -133,7 +134,7 @@ resource "google_storage_bucket" "terraform_state_bucket" {
   depends_on = [google_service_account_iam_member.workload_identity_user]
 }
 
-# Grant the Service Account Object Admin rights on the bucket
+# 8. Grant the Service Account Object Admin rights on the bucket
 resource "google_storage_bucket_iam_member" "sa_storage_admin" {
   bucket = google_storage_bucket.terraform_state_bucket.name
   role   = "roles/storage.objectAdmin"

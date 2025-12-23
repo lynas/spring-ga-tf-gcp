@@ -38,7 +38,14 @@ out/
 
 ### Kotlin ###
 .kotlin
-*.terraform/
-*.terraform.lock.hcl
-*.tfstate
-*terraform.tfstate.backup
+
+### Terraform ###
+
+config/one-time-config/terraformConfig/.terraform.lock.hcl
+config/one-time-config/terraformConfig/.terraform/
+config/one-time-config/terraformConfig/terraform.tfstate
+config/one-time-config/terraformConfig/terraform.tfstate.backup
+terraform/.terraform.lock.hcl
+terraform/.terraform/
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
