@@ -9,7 +9,7 @@ on:
 #    types:
 #      - completed
 env:
-  PROJECT_ID: "spring-boot-deployment-at2"
+  PROJECT_ID: "spring-boot-ci-cd-deployment"
   REGION: "europe-west3"
   REPOSITORY: "my-docker-repo"
   IMAGE_NAME: "spring-boot-tf-gcp-sample"
@@ -33,8 +33,8 @@ jobs:
         name: 'Authenticate to Google Cloud'
         uses: 'google-github-actions/auth@v2'
         with:
-          workload_identity_provider: 'projects/973631786008/locations/global/workloadIdentityPools/github-pool/providers/github-provider'
-          service_account: 'terraform-sa@spring-boot-deployment-at2.iam.gserviceaccount.com'
+          workload_identity_provider: 'projects/587038327360/locations/global/workloadIdentityPools/github-pool-v3/providers/github-provider'
+          service_account: 'terraform-sa@spring-boot-ci-cd-deployment.iam.gserviceaccount.com'
 
       # - name: 'Set up Terraform'
       #   uses: hashicorp/setup-terraform@v3
