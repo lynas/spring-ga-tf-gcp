@@ -14,7 +14,7 @@ env:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    if: ${{ github.env == 'success' }}
+#    if: ${{ github.env == 'success' }}
     permissions:
       contents: 'read'
       id-token: 'write'
@@ -27,7 +27,7 @@ jobs:
         id: auth
         uses: 'google-github-actions/auth@v2'
         with:
-          workload_identity_provider: 'projects/587038327360/locations/global/workloadIdentityPools/github-pool-v3/providers/github-provider'
+          workload_identity_provider: 'projects/587038327360/locations/global/workloadIdentityPools/github-pool-v4/providers/github-provider'
           service_account: 'terraform-sa@spring-boot-ci-cd-deployment.iam.gserviceaccount.com'
 
       # Configure Docker to use gcloud as a credential helper
@@ -45,12 +45,12 @@ jobs:
       - name: Give gradle execution permission
         run: chmod +x gradlew
 
-#      - name: Build Image with Gradle
-#        run: ./gradlew bootBuildImage --imageName=${{ env.IMAGE_NAME }}
-#
-#      - name: Tag and Push to Artifact Registry
-#        run: |
-#          IMAGE_FULL_PATH="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
-#          docker tag ${{ env.IMAGE_NAME }} $IMAGE_FULL_PATH
-#          docker push $IMAGE_FULL_PATH
-#          echo "image_path=$IMAGE_FULL_PATH" >> $GITHUB_OUTPUT
+      - name: Build Image with Gradle
+        run: ./gradlew bootBuildImage --imageName=${{ env.IMAGE_NAME }}
+
+      - name: Tag and Push to Artifact Registry
+        run: |
+          IMAGE_FULL_PATH="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+          docker tag ${{ env.IMAGE_NAME }} $IMAGE_FULL_PATH
+          docker push $IMAGE_FULL_PATH
+          echo "image_path=$IMAGE_FULL_PATH" >> $GITHUB_OUTPUT
