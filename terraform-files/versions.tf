@@ -11,7 +11,7 @@ terraform {
     }
   }
   backend "gcs" {
-    bucket = "terraform-state-bucket-${var.project_id}"
+    bucket = "terraform-state-bucket-spring-boot-ci-cd-deployment"
     prefix = "terraform/state"
   }
 }
