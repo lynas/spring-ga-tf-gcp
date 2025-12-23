@@ -1,0 +1,56 @@
+name: Build and Push to GCP
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  PROJECT_ID: "spring-boot-ci-cd-deployment"
+  REGION: "europe-west3"
+  REPOSITORY: "my-docker-repo"
+  IMAGE_NAME: "spring-boot-tf-gcp-sample"
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    if: ${{ github.env == 'success' }}
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: 'google-github-actions/auth@v2'
+        with:
+          workload_identity_provider: 'projects/587038327360/locations/global/workloadIdentityPools/github-pool-v3/providers/github-provider'
+          service_account: 'terraform-sa@spring-boot-ci-cd-deployment.iam.gserviceaccount.com'
+
+      # Configure Docker to use gcloud as a credential helper
+      - name: Setup Docker
+        run: |
+          gcloud auth configure-docker ${{ env.REGION }}-docker.pkg.dev --quiet
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Give gradle execution permission
+        run: chmod +x gradlew
+
+#      - name: Build Image with Gradle
+#        run: ./gradlew bootBuildImage --imageName=${{ env.IMAGE_NAME }}
+#
+#      - name: Tag and Push to Artifact Registry
+#        run: |
+#          IMAGE_FULL_PATH="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
+#          docker tag ${{ env.IMAGE_NAME }} $IMAGE_FULL_PATH
+#          docker push $IMAGE_FULL_PATH
+#          echo "image_path=$IMAGE_FULL_PATH" >> $GITHUB_OUTPUT
